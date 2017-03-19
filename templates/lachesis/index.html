@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+
+{% load staticfiles %}
+
+<html>
+	<head>
+			<title>Lachesis</title>
+			<link rel="stylesheet" href="{% static "css/base.css" %}" />
+
+			<script src="{% static "js/jquery.js" %}"></script>
+	</head>
+
+	<body>
+			<h1>Welcome to Lachesis!</h1>
+			<div>
+				The interactive story-telling app.<br />
+        <strong>{{ boldmessage }}<strong><br />
+			</div>
+
+			<div>
+				<a href="/lachesis/about/">About</a><br />
+				<img src="/static/images/lachesis.jpg" alt="Image of Lachesis from the greek mythology." />
+			</div>
+	</body>
+</html>
