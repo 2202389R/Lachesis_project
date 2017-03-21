@@ -1,0 +1,18 @@
+{% extends 'lachesis/base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+	About
+{% endblock %}
+
+{% block body_block %}
+	<div>
+		<h1>About Page</h1>
+			This application has been made with the authors as well as the readers in mind.
+	</div>
+
+		<p> visits: {{ visits }}</p>
+		<img src="{% static "images/lachesis2.jpg" %}" alt="Picture of lachesis" />
+		<img src="{{ MEDIA_URL }}cat.jpg">
+
+{% endblock %}
