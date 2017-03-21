@@ -1,0 +1,53 @@
+{% extends 'lachesis/base.html' %}
+{% load staticfiles %}
+{% block title_block %}
+	Index
+{% endblock %}
+
+{% block body_block %}
+	<div>
+		<h1>Lachesis says...</h1>
+			{% if user.is_authenticated %}
+				howdy {{ user.username }}!
+			{% else %}
+				hey there partner!
+			{% endif %}
+		</div>
+	
+		<div>
+			<div>
+				<h3>Most Liked Genres</h3>
+			</div>
+		
+		{% if genres %}
+		<ul>
+			{% for genre in genre %}
+			<li>
+				<a href="{% url 'show_genre' genre.slug %}">{{ genre.name }}</a>
+			</li>
+			{% endfor %}
+		</ul>
+		{% else%}
+			<strong>There are no genres present.</strong>
+		{% endif %}
+		</div>
+		
+		<div>
+			<div>
+				<h3>Most Viewed Stories</h3>
+			</div>
+		
+		{% if stories %}
+		<ul>
+			{% for sotry in stories %}
+			<li><a href="{{ story.url }}">{{ story.title }}</a></li>
+			{% endfor %}
+		</ul>
+		{% else%}
+			<strong>There are no genres present.</strong>
+		{% endif %}
+		</div>
+			
+			<p> visits: {{ visits }}</p>
+			<img src="{% static "images/rango.jpg" %}" alt="Picture of Rango" />
+{% endblock %}

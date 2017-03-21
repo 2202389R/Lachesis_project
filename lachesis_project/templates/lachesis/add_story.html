@@ -1,0 +1,35 @@
+{% extends 'lachesis/base.html' %}
+{% load staticfiles %}
+{% block title_block %}
+	Add Story
+{% endblock %}
+
+{% block body_block %}
+	<div>
+				{% if genre %}
+			
+		<h1>Add a Story to {{genre.name}}</h1>
+		
+		<form id="story_form" method="post" action="/lachesis/genre/{{ genre.slug }}/add_story/">
+			
+			{% csrf_token %}
+			{% for hidden in form.hidden_fields %}
+				{{ hidden }}
+			{% endfor %}
+			
+			{% for field in form.visible_fields %}
+				{{ field.errors }}
+				{{ field.help_text }}
+				{{ field }}
+			{% endfor %}
+			
+			<input type="submit" name="submit" value="Add Story" />
+			
+		</form>
+		
+				{% else %}
+					The specified genre does not exist!
+				{% endif%}
+			
+	</div>
+{% endblock %}
