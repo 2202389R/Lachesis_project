@@ -1,23 +1,25 @@
 from __future__ import unicode_literals
+import datetime
+
 from django.db import models
 from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
-from django.utils import timezone
+
 
 class Genre(models.Model):
     name = models.CharField(max_length=128, unique=True)
     votes = models.IntegerField(default=0)
     stories = models.IntegerField(default=0)
     slug = models.SlugField(unique=True)
-
+    
     def save(self, *args, **kwargs):
-        if self.votes < 0:
-            self.votes = 0
-        if self.stories < 0:
-            self.stories = 0
+		if self.votes < 0:
+			self.votes = 0 
+		if self.stories < 0:
+			self.stories = 0
 
-        self.slug = slugify(self.name)
-        super(Genre, self).save(*args, **kwargs)
+		self.slug = slugify(self.name)
+		super(Genre, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.name
@@ -26,50 +28,51 @@ class Genre(models.Model):
 class Story(models.Model):
     id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=128)
-    story_genre = models.ForeignKey(Genre)
+    genre = models.ForeignKey(Genre)
     author = models.ForeignKey(User)
     votes = models.IntegerField(default=0)
     completed = models.BooleanField(default=False)
-
-    def save(self, *args, **kwargs):
-            if self.votes < 0:
-                self.votes = 0
-
-            self.slug = slugify(self.title)
-            super(Story, self).save(*args, **kwargs)
-
+	slug = models.SlugField(unique=True)
+	
     class Meta:
-            verbose_name_plural = 'Stories'
+        verbose_name_plural = 'Stories'
+	
+	def save(self, *args, **kwargs):
+        if self.votes < 0:
+            self.votes =0
 
+        self.slug = slugify(self.title)
+        super(Story, self).save(*args, **kwargs)
+        
     def __str__(self):
         return self.title
-
+        
 
 class Segment(models.Model):
     segment_number = models.AutoField(primary_key=True)
     story = models.ForeignKey(Story)
     segment_text = models.TextField(max_length=10000)
-    pub_date = models.DateTimeField(default=timezone.now)
+    pub_date = models.DateTimeField(default=datetime.date.today())
     closed = models.BooleanField(default=False)
     option1 = models.TextField(max_length=1000)
     option2 = models.TextField(max_length=1000)
     option1votes = models.IntegerField(default=0)
     option2votes = models.IntegerField(default=0)
-
-    def save(self, *args, **kwargs):
+	
+	def save(self, *args, **kwargs):
         if self.option1votes < 0:
             self.option1votes = 0
-
-        if self.option2votes < 0:
+		
+		if self.option2votes < 0:
             self.option2votes = 0
 
         self.slug = slugify(self.segment_number)
         super(Segment, self).save(*args, **kwargs)
-
+    
     def voting_period(self):
         if self.pub_date >= timezone.now() - datetime.timedelta(days=1):
             self.closed = True
-
+    
     def __str__(self):
         return self.segment_number
 

@@ -4,32 +4,33 @@ from django.contrib.auth.models import User
 
 class GenreForm(forms.ModelForm):
     name = forms.CharField(max_length=128)
-    views = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
-    likes = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
+    stories = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
+    votes = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
+    slug = forms.CharField(widget=forms.HiddenInput(), required=False)
+
+    class Meta:
+        model = Genre
+        fields = ('name',)
+
+class StoryForm(forms.ModelForm):
+    title = forms.CharField(max_length=128, help_text="Please enter the title of the story.")
+    votes = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
+    author = forms.ForeignKey(User)
     slug = forms.CharField(widget=forms.HiddenInput(), required=False)
 
     class Meta:
         model = Story
-        fields = ('name',)
+        exclude = ('genre',)
 
-class StoryForm(forms.ModelForm):
+class SegmentForm(forms.ModelForm):
     id = forms.IntegerField(max_length=99)
     title = forms.CharField(max_length=128, help_text="Please enter the title of the story.")
     votes = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
     author = forms.ForeignKey(User)
     slug = forms.CharField(widget=forms.HiddenInput(), required=False)
 
-    def clean(self):
-        cleaned_data = self.cleaned_data
-        url = cleaned_data.get('url')
-        if url and not url.startswith('http://'):
-            url = 'http://' + url
-            cleaned_data['url'] = url
-
-            return cleaned_data
-
     class Meta:
-        model = Story
+        model = Segment
         exclude = ('story',)
 
 class UserForm(forms.ModelForm):
@@ -42,4 +43,4 @@ class UserForm(forms.ModelForm):
 class UserProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile
-        fields = ('website', 'picture')
+        fields = ('picture')
