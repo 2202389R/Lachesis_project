@@ -13,13 +13,12 @@ class Genre(models.Model):
     slug = models.SlugField(unique=True)
     
     def save(self, *args, **kwargs):
-		if self.votes < 0:
-			self.votes = 0 
-		if self.stories < 0:
-			self.stories = 0
-
-		self.slug = slugify(self.name)
-		super(Genre, self).save(*args, **kwargs)
+        if self.votes < 0:
+            self.votes = 0
+        if self.stories < 0:
+            self.stories = 0
+        self.slug = slugify(self.name)
+        super(Genre, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.name
@@ -33,11 +32,11 @@ class Story(models.Model):
     votes = models.IntegerField(default=0)
     completed = models.BooleanField(default=False)
     slug = models.SlugField(unique=True)
-	
+
     class Meta:
         verbose_name_plural = 'Stories'
 	
-	def save(self, *args, **kwargs):
+    def save(self, *args, **kwargs):
         if self.votes < 0:
             self.votes =0
 
@@ -59,11 +58,11 @@ class Segment(models.Model):
     option1votes = models.IntegerField(default=0)
     option2votes = models.IntegerField(default=0)
 	
-	def save(self, *args, **kwargs):
+    def save(self, *args, **kwargs):
         if self.option1votes < 0:
             self.option1votes = 0
 		
-		if self.option2votes < 0:
+        if self.option2votes < 0:
             self.option2votes = 0
 
         self.slug = slugify(self.segment_number)

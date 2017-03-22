@@ -16,7 +16,7 @@ class GenreForm(forms.ModelForm):
 class StoryForm(forms.ModelForm):
     title = forms.CharField(max_length=128, help_text="Please enter the title of the story.")
     votes = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
-    author = forms.ForeignKey(User)
+    author = forms.CharField(widget=forms.HiddenInput(), initial=User)
     slug = forms.CharField(widget=forms.HiddenInput(), required=False)
 
     class Meta:
@@ -24,12 +24,12 @@ class StoryForm(forms.ModelForm):
         exclude = ('genre',)
 
 class SegmentForm(forms.ModelForm):
-    segment_number = forms.AutoField(widget=forms.HiddenInput(), primary_key=True)
-    segment_text = forms.TextField(max_length=10000)
+    segment_number = forms.CharField(widget=forms.HiddenInput())
+    segment_text = forms.CharField(max_length=10000)
     pub_date = forms.DateTimeField(initial=datetime.date.today())
     closed = forms.BooleanField(widget=forms.HiddenInput(), initial=False)
-    option1 = forms.TextField(max_length=1000, help_text="Please enter option 1")
-    option2 = forms.TextField(max_length=1000, help_text="Please enter option 2")
+    option1 = forms.CharField(max_length=1000, help_text="Please enter option 1")
+    option2 = forms.CharField(max_length=1000, help_text="Please enter option 2")
     option1votes = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
     option2votes = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
 
@@ -47,4 +47,4 @@ class UserForm(forms.ModelForm):
 class UserProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile
-        fields = ('picture')
+        fields = ('picture',)
