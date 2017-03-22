@@ -1,44 +1,90 @@
 from __future__ import unicode_literals
+import datetime
+
 from django.db import models
 from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
 
 
-class Category(models.Model):
+class Genre(models.Model):
     name = models.CharField(max_length=128, unique=True)
-    views = models.IntegerField(default=0)
-    likes = models.IntegerField(default=0)
+    votes = models.IntegerField(default=0)
+    stories = models.IntegerField(default=0)
     slug = models.SlugField(unique=True)
-
+    
     def save(self, *args, **kwargs):
-        if self.views < 0:
-            self.views = 0
+        if self.votes < 0:
+            self.votes = 0
+        if self.stories < 0:
+            self.stories = 0
 
         self.slug = slugify(self.name)
-        super(Category, self).save(*args, **kwargs)
-
-    class Meta:
-        verbose_name_plural = 'Categories'
+        super(Genre, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.name
 
 
-class Page(models.Model):
-    category = models.ForeignKey(Category)
+class Story(models.Model):
+    id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=128)
-    url = models.URLField()
-    views = models.IntegerField(default=0)
+    story_genre = models.ForeignKey(Genre)
+    author = models.ForeignKey(User)
+    votes = models.IntegerField(default=0)
+    completed = models.BooleanField(default=False)
 
+    class Meta:
+        verbose_name_plural = 'Stories'
+	
+	def save(self, *args, **kwargs):
+        if self.votes < 0:
+            self.votes = 0
+
+        self.slug = slugify(self.title)
+        super(Story, self).save(*args, **kwargs)
+        
     def __str__(self):
         return self.title
+        
+
+class Segment(models.Model):
+    segment_number = models.AutoField(primary_key=True)
+    story = models.ForeignKey(Story)
+    segment_text = models.TextField(max_length=10000)
+    pub_date = models.DateTimeField(default=timezone.now)
+    closed = models.BooleanField(default=False)
+    option1 = models.TextField(max_length=1000)
+    option2 = models.TextField(max_length=1000)
+    option1votes = models.IntegerField(default=0)
+    option2votes = models.IntegerField(default=0)
+	
+	def save(self, *args, **kwargs):
+        if self.option1votes < 0:
+            self.option1votes = 0
+		
+		if self.option2votes < 0:
+            self.option2votes = 0
+
+        self.slug = slugify(self.segment_number)
+        super(Segment, self).save(*args, **kwargs)
+    
+    def voting_period(self):
+        if self.pub_date >= timezone.now() - datetime.timedelta(days=1):
+            self.closed = True
+    
+    def __str__(self):
+        return self.segment_number
+
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User)
-
-    # The additional attributes we wish to include
-    website = models.URLField(blank=True)
     picture = models.ImageField(upload_to='profile_images', blank=True)
 
     def __str__(self):
         return self.user.username
+
+class UserSegment(models.Model):
+    user = models.ForeignKey(User)
+    option = models.CharField(max_length=1)
+    story = models.ForeignKey(Story)
+    segment = models.ForeignKey(Segment)
