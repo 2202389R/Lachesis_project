@@ -19,9 +19,11 @@ python manage.py createsuperuser
 ```
 <br />
 
+## TODO
 2. Update admin.py to include and register your new model(s). <br />
 3. Perform the migration $ python manage.py makemigrations <app_name>. <br />
 4. Apply the changes $ python manage.py migrate. This will create the necessary infrastructure
 within the database for your new model(s). <br />
 5. Create/edit your population script for your new model(s).
 
+Fix .gitignore to ignore redundant files/junk files/junk and delete existing ones.
