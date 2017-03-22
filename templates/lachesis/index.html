@@ -17,19 +17,19 @@
 
 		<div>
 			<div>
-				<h3>Most Liked Categories</h3>
+				<h3>Most Liked Genres</h3>
 			</div>
 
-		{% if categories %}
+		{% if genres %}
 		<ul>
-			{% for category in categories %}
+			{% for genre in genres %}
 			<li>
-				<a href="{% url 'show_category' category.slug %}">{{ category.name }}</a>
+				<a href="{% url 'show_genre' genre.slug %}">{{ genre.name }}</a>
 			</li>
 			{% endfor %}
 		</ul>
 		{% else%}
-			<strong>There are no categories present.</strong>
+			<strong>There are no genres present.</strong>
 		{% endif %}
 		</div>
 
@@ -38,14 +38,14 @@
 				<h3>Most Viewed Pages</h3>
 			</div>
 
-		{% if pages %}
+		{% if stories %}
 		<ul>
-			{% for page in pages %}
-			<li><a href="{{ page.url }}">{{ page.title }}</a></li>
+			{% for story in stories %}
+			<li><a href="{{ story.url }}">{{ story.title }}</a></li>
 			{% endfor %}
 		</ul>
 		{% else%}
-			<strong>There are no categories present.</strong>
+			<strong>There are no genres present.</strong>
 		{% endif %}
 		</div>
 

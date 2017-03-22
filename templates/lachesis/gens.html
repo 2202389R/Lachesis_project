@@ -1,0 +1,19 @@
+<ul>
+{% if gens %}
+	{% for g in gens %}
+		{% if g == act_gen %}
+			<li>
+			<strong>
+				<a href="{% url 'show_genre' c.slug %}">{{ g.name }}</a>
+			</strong>
+			</li>
+		{% else %}
+			<li>
+				<a href="{% url 'show_genre' c.slug %}">{{ g.name }}</a>
+			</li>
+		{% endif %}
+	{% endfor %}
+{% else %}
+	<li> <strong>There are no genres present.</strong></li>
+{% endif %}
+</ul>

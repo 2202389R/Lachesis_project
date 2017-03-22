@@ -1,0 +1,31 @@
+{% extends "lachesis/base.html" %}
+{% load staticfiles %}
+
+{% block title_block %}
+	{{ genre.name }}
+{% endblock %}
+
+{% block body_block %}
+	{% if genre %}
+		<h1>{{ genre.name }}</h1>
+		{% if storys %}
+			<u1>
+			{% for story in storys %}
+				<li><a href="{{ story.url }}">{{ story.title }}</a></li>
+			{% endfor %}
+			<a href="/lachesis/genre/{{genre.slug}}/add_story/">Add Story</a> <br/>
+			<a href="/lachesis/">View index story</a><br />
+			</ul>
+		{% else %}
+			<strong>No storys currently in genre.</strong>
+		{% endif %}
+
+		{% if user.is_authenticated %}
+			<a href="{% url 'add_story' genre.slug %}">Add a Story</a><br/>
+		{% endif %}
+
+	{% else %}
+		The specified genre does not exist!
+	{% endif %}
+	</div>
+{% endblock %}

@@ -6,7 +6,7 @@
 	<head>
 		<title>lachesis-
 			{% block title_block %}
-				How to Tango with Django!
+				Welcome to Lachesis!
 			{% endblock %}
 		</title>
 	</head>
@@ -22,7 +22,7 @@
 			{% if user.is_authenticated %}
 				<li><a href="{% url 'restricted' %}">Restricted Page</a></li>
 				<li><a href="{% url 'logout' %}">Logout</a></li>
-				<li><a href="{% url 'add_category' %}">Add a New Category</a></li>
+				<li><a href="{% url 'add_genre' %}">Add a New Genre</a></li>
 			{% else %}
 				<li><a href="{% url 'login' %}">Sign In</a><li>
 				<li><a href="{% url 'register' %}">Sign Up</a></li>
@@ -34,7 +34,7 @@
 
 	<div>
 		{% block sidebar_block %}
-			{% get_category_list category %}
+			{% get_genre_list genre %}
 		{% endblock %}
 	</div>
 	</body>

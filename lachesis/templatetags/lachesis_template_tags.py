@@ -1,8 +1,8 @@
 from django import template
-from lachesis.models import Category
+from lachesis.models import Genre
 
 register = template.Library()
 
-@register.inclusion_tag('lachesis/cats.html')
-def get_category_list(cat=None):
-    return {'cats': Category.objects.all(), 'act_cat': cat}
+@register.inclusion_tag('lachesis/gens.html')
+def get_genre_list(gen=None):
+    return {'gens': Genre.objects.all(), 'act_gen': gen}
