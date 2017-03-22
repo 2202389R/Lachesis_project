@@ -1,30 +1,27 @@
 from django import forms
-from lachesis.models import Page, Category, UserProfile
+from lachesis.models import Genre, Story, Segment, UserProfile, UserSegment
 from django.contrib.auth.models import User
 
-class CategoryForm(forms.ModelForm):
-    name = forms.CharField(max_length=128, help_text="Please enter the category name.")
+class GenreForm(forms.ModelForm):
+    name = forms.CharField(max_length=128)
     views = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
     likes = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
     slug = forms.CharField(widget=forms.HiddenInput(), required=False)
 
-    # An inline class to provide additional information on the form.
     class Meta:
-        # Provide an association between the ModelForm and a model
-        model = Category
+        model = Story
         fields = ('name',)
 
-class PageForm(forms.ModelForm):
-    title = forms.CharField(max_length=128, help_text="Please enter the title of the page.")
-    url = forms.URLField(max_length=200, help_text="Please enter the URL of the page.")
-    views = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
+class StoryForm(forms.ModelForm):
+    id = forms.IntegerField(max_length=99)
+    title = forms.CharField(max_length=128, help_text="Please enter the title of the story.")
+    votes = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
+    author = forms.ForeignKey(User)
+    slug = forms.CharField(widget=forms.HiddenInput(), required=False)
 
     def clean(self):
         cleaned_data = self.cleaned_data
         url = cleaned_data.get('url')
-
-        # If url is not empty and doesn't start with 'http://',
-        # then pretend 'http://'
         if url and not url.startswith('http://'):
             url = 'http://' + url
             cleaned_data['url'] = url
@@ -32,8 +29,8 @@ class PageForm(forms.ModelForm):
             return cleaned_data
 
     class Meta:
-        model = Page
-        exclude = ('category',)
+        model = Story
+        exclude = ('story',)
 
 class UserForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput())

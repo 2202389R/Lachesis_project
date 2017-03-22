@@ -1,9 +1,9 @@
-from lachesis.forms import CategoryForm
-from lachesis.forms import PageForm
+from lachesis.forms import GenreForm
+from lachesis.forms import StoryForm
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
-from lachesis.models import Category
-from lachesis.models import Page
+from lachesis.models import Genre
+from lachesis.models import Story
 from lachesis.forms import UserForm, UserProfileForm
 from django.contrib.auth import authenticate, login
 from django.core.urlresolvers import reverse
