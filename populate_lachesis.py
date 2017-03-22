@@ -18,10 +18,10 @@ def populate():
 
      gens = {"Fairy Tales":{"stories":fairytale_stories, "votes":54}}
 
-     segments = {"Cinderella":{{"segment":1, "text": "hi", "Published": "2015-03-21"
-          "closed": True, "option1": "yes", "option2": "no", "option1votes": 34
-                    "option2votes":65}, {"segment":2, "text": "bye", "Published": "2015-04-21"
-          "closed": True, "option1": "haha", "option2": "oh", "option1votes": 34
+     segments = {"Cinderella":{{"segment":1, "text": "hi", "Published": "2015-03-21",
+          "closed": True, "option1": "yes", "option2": "no", "option1votes": 34,
+                    "option2votes":65}, {"segment":2, "text": "bye", "Published": "2015-04-21",
+          "closed": True, "option1": "haha", "option2": "oh", "option1votes": 34,
                     "option2votes":65}}}
 
 
@@ -38,7 +38,7 @@ def populate():
              add_story(g, s["title"],s["author"], s["completed"])
 
      for se in segments.items():
-          if segments[se] = s["title"]:
+          if segments[se] == s["title"]:
                add_segment(segments[se],segments[se]["segment"],
                     segments[se]["text"], segment[se]["pub_date"],
                     segment[se]["option1"],segment[se]["option2"],
