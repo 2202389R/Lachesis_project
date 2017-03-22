@@ -1,5 +1,5 @@
 from __future__ import unicode_literals
-import datetime
+from django.utils import timezone
 
 from django.db import models
 from django.template.defaultfilters import slugify
@@ -51,7 +51,7 @@ class Segment(models.Model):
     segment_number = models.AutoField(primary_key=True)
     story = models.ForeignKey(Story)
     segment_text = models.TextField(max_length=10000)
-    pub_date = models.DateTimeField(default=datetime.date.today())
+    pub_date = models.DateTimeField(default=timezone.now)
     closed = models.BooleanField(default=False)
     option1 = models.TextField(max_length=1000)
     option2 = models.TextField(max_length=1000)

@@ -13,12 +13,12 @@ from datetime import datetime
 
 
 def index(request):
-    category_list = Category.objects.order_by('-likes')[:5]
-    page_list = Page.objects.order_by('-views')[:5]
-    context_dict = {'categories': category_list, 'pages': page_list}
+    genre_list = Genre.objects.order_by('-votes')[:5]
+    story_list = Story.objects.order_by('-votes')[:5]
+    context_dict = {'genres': genre_list, 'stories': story_list}
 
     visitor_cookie_handler(request)
-    context_dict['visits'] = request.session['visits']
+    context_dict['votes'] = request.session['votes']
 
     response = render(request, 'lachesis/index.html', context_dict)
     return response
@@ -33,7 +33,7 @@ def about(request):
     return response
 
 
-def show_genre(request, category_name_slug):
+def show_genre(request, genre_name_slug):
 	context_dict = {}
 
 	try:
@@ -42,26 +42,49 @@ def show_genre(request, category_name_slug):
 		context_dict['stories'] = stories
 		context_dict['genre'] = genre
 
-	except Category.DoesNotExist:
+	except Genre.DoesNotExist:
 		context_dict['genre'] = None
 		context_dict['stories'] = None
 
 	return render(request, 'lachesis/category.html', context_dict)
 
 
-def add_story(request):
-    form = CategoryForm()
+def add_genre(request):
+    form = GenreForm()
 
     if request.method == 'POST':
-        form = StoryForm(request.POST)
+        form = GenreForm(request.POST)
 
         if form.is_valid():
-            cat = form.save(commit=True)
+            gen = form.save(commit=True)
             return index(request)
         else:
             print(form.errors)
 
-    return render(request, 'lachesis/add_story.html', {'form': form})
+    return render(request, 'lachesis/add_genre.html', {'form': form})
+
+def add_story(request, genre_name_slug):
+    try:
+        genre = Genre.objects.get(slug=genre_name_slug)
+    except Genre.DoesNotExist:
+        genre = None
+
+    form = StoryForm()
+    if request.method == 'POST':
+        form = StoryForm(request.POST)
+        if form.is_valid():
+            if genre:
+                story = form.save(commit=False)
+                story.genre = genre
+                story.views = 0
+                story.save()
+                return show_genre(request, genre_name_slug)
+        else:
+            print(form.errors)
+
+    context_dict = {'form':form, 'genre': genre}
+    
+    return render(request, 'rango/add_story.html', context_dict)
 
 def register(request):
     registered = False
