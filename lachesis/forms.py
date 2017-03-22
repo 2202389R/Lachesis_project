@@ -1,9 +1,10 @@
 from django import forms
 from lachesis.models import Genre, Story, Segment, UserProfile, UserSegment
 from django.contrib.auth.models import User
+import datetime
 
 class GenreForm(forms.ModelForm):
-    name = forms.CharField(max_length=128)
+    name = forms.CharField(max_length=128, help_text="Please enter the Genre name.")
     stories = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
     votes = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
     slug = forms.CharField(widget=forms.HiddenInput(), required=False)
@@ -23,11 +24,14 @@ class StoryForm(forms.ModelForm):
         exclude = ('genre',)
 
 class SegmentForm(forms.ModelForm):
-    id = forms.IntegerField(max_length=99)
-    title = forms.CharField(max_length=128, help_text="Please enter the title of the story.")
-    votes = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
-    author = forms.ForeignKey(User)
-    slug = forms.CharField(widget=forms.HiddenInput(), required=False)
+    segment_number = forms.AutoField(widget=forms.HiddenInput(), primary_key=True)
+    segment_text = forms.TextField(max_length=10000)
+    pub_date = forms.DateTimeField(initial=datetime.date.today())
+    closed = forms.BooleanField(widget=forms.HiddenInput(), initial=False)
+    option1 = forms.TextField(max_length=1000, help_text="Please enter option 1")
+    option2 = forms.TextField(max_length=1000, help_text="Please enter option 2")
+    option1votes = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
+    option2votes = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
 
     class Meta:
         model = Segment

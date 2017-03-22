@@ -32,7 +32,7 @@ class Story(models.Model):
     author = models.ForeignKey(User)
     votes = models.IntegerField(default=0)
     completed = models.BooleanField(default=False)
-	slug = models.SlugField(unique=True)
+    slug = models.SlugField(unique=True)
 	
     class Meta:
         verbose_name_plural = 'Stories'
