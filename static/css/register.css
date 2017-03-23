@@ -5,6 +5,13 @@
     padding-left: 15px;
     color: #191970;
 }
+#websiteSlogan{
+    font-size: 2em;
+    vertical-align: middle;
+    font-family: arial, sans-serif;
+    padding-left: 15px;
+    color: #191970;
+}
 /* Full-width inputs */
     input[type=text], input[type=password], input[type=email] {
         width: 100%;
