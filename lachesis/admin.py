@@ -9,7 +9,7 @@ class StoryAdmin(admin.ModelAdmin):
     list_display = ('title', 'genre', 'author')
 
 class SegmentAdmin(admin.ModelAdmin):
-    list_display = ('story', 'closed')
+    list_display = ('segment_number', 'story', 'closed')
 
 admin.site.register(Genre, GenreAdmin)
 admin.site.register(Story, StoryAdmin)

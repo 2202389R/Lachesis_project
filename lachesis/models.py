@@ -22,9 +22,9 @@ class Genre(models.Model):
 
 
 class Story(models.Model):
+    genre = models.ForeignKey(Genre)
     id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=128)
-    genre = models.ForeignKey(Genre)
     author = models.ForeignKey(User)
     votes = models.IntegerField(default=0)
     completed = models.BooleanField(default=False)
@@ -45,7 +45,7 @@ class Story(models.Model):
         
 
 class Segment(models.Model):
-    segment_number = models.AutoField(primary_key=True)
+    segment_number = models.CharField(max_length=64)
     story = models.ForeignKey(Story)
     segment_text = models.TextField(max_length=10000)
     pub_date = models.DateTimeField(default=timezone.now)

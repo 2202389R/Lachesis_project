@@ -23,7 +23,7 @@ class StoryForm(forms.ModelForm):
         exclude = ('genre',)
 
 class SegmentForm(forms.ModelForm):
-    segment_number = forms.CharField(widget=forms.HiddenInput())
+    segment_number = forms.CharField(max_length=128, help_text="Please enter the title of the segment.")
     segment_text = forms.CharField(max_length=10000)
     pub_date = forms.DateTimeField(initial=datetime.date.today())
     closed = forms.BooleanField(widget=forms.HiddenInput(), initial=False)

@@ -52,23 +52,24 @@ def populate():
 
 def add_segment(story, segment, text, pub_date=datetime.date.today, option1,
                 option2, option1votes= 0, option2votes=0):
-    s = Segment.objects.get_or_create(story=story, segment=segment, segment_text=text, pub_date=pub_date,
-                                      option1=option1, option2=option2,
-                                      option1votes=option1votes, option2votes=option2votes)[0]
-    s.save()
-    return s
+    se = Segment.objects.get_or_create(story=story, segment_number=segment, segment_text=text, pub_date=pub_date,
+                                      option1=option1, option2=option2)[0]
+    se.option1votes=option1votes
+    se.option2votes=option2votes
+    se.save()
+    return se
 
 def add_story(gen, title, author, completed = False, votes = 0):
     s = Story.objects.get_or_create(genre=gen, title = title)[0]
-	s.completed=completed
-	s.author=author
-	s.votes=votes
+    s.completed=completed
+    s.author=author
+    s.votes=votes
     s.save()
     return s
 
 def add_gen(name,views=0):
     g = Genre.objects.get_or_create(name=name)[0]
-	g.views=views
+    g.views=views
     g.save()
     return g
 

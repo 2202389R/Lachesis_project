@@ -38,6 +38,7 @@ def show_genre(request, genre_name_slug):
 
 	try:
 		genre = Genre.objects.get(slug=genre_name_slug)
+		
 		stories = Story.objects.filter(genre=genre)
 		context_dict['stories'] = stories
 		context_dict['genre'] = genre
@@ -47,21 +48,6 @@ def show_genre(request, genre_name_slug):
 		context_dict['stories'] = None
 
 	return render(request, 'lachesis/genre.html', context_dict)
-
-def show_story(request, story_name_slug):
-	context_dict = {}
-
-	try:
-		story = Story.objects.get(slug=story_name_slug)
-		segments = Segment.objects.filter(genre=genre)
-		context_dict['segments'] = segments
-		context_dict['story'] = story
-
-	except Story.DoesNotExist:
-		context_dict['story'] = None
-		context_dict['segments'] = None
-
-	return render(request, 'lachesis/story.html', context_dict)
 
 def add_genre(request):
     form = GenreForm()
