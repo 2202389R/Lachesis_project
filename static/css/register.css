@@ -4,6 +4,7 @@
     font-family: 'Pacifico', cursive;
     padding-left: 15px;
     color: #191970;
+    text-align: center;
 }
 #websiteSlogan{
     font-size: 2em;
@@ -11,6 +12,7 @@
     font-family: arial, sans-serif;
     padding-left: 15px;
     color: #191970;
+    text-align: center;
 }
 /* Full-width inputs */
     input[type=text], input[type=password], input[type=email] {

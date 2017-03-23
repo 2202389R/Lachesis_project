@@ -5,14 +5,13 @@
 <link href="{% static "css/register.css" %}" rel="stylesheet">
 <div class="container" align="centre">
 <div id="content" class="container">
-	<span id="websiteTitle">Lachesis</span>
-	  <p id="websiteSlogan">Interactive Storytelling</p>
+	<p id="websiteTitle">Lachesis</p>
+	<p id="websiteSlogan">Interactive Storytelling</p>
 </div>
 
 <div class="col-md-12" align="centre">
     {% if registered %}
-            <strong>thank you for registering!</strong>
-            <a type="button" class="btn btn-primary" href="{% url 'index' %}">Return to the homepage.</a><br />
+            <a type="button" class="btn btn-default" align="centre" href="{% url 'index' %}">Thank you for registering! Click here to return to the homepage.</a>
     {% else %}
 
 		<form id="user_form" method="post" action="{% url 'register' %}" enctype="multipart/form-data">
