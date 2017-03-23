@@ -4,7 +4,7 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE',
 import django
 import datetime
 django.setup()
-from lachesis.models import Genre, Story, Segment
+from lachesis.models import Genre, Story, Segment, UserProfile
 
 def populate():
      # First, we will create lists of dictionaries containing the pages
@@ -13,8 +13,10 @@ def populate():
      # This might seem a little bit confusing, but it allows us to iterate
      # through each data structure, and add the data to our models.
 
+     Users=UserProfile.objects.all()
+     
      fairytale_stories = [
-          {"title": "Cinderella", "author": "123",
+          {"title": "Cinderella", "author": "test",
            "completed": True, "votes": 54}]
 
      gens = {"Fairy Tales":{"stories":fairytale_stories, "views":54}}
@@ -36,7 +38,7 @@ def populate():
      for gen, gen_data in gens.items():
          g = add_gen(gen,gen_data["views"])
          for s in gen_data["stories"]:
-             add_story(g, s["title"],s["author"], s["completed"])
+             add_story(g, s["title"],s["author"], s["completed"], s["votes"])
 
      for se in segments.items():
           if segments[se] == s["title"]:
@@ -50,19 +52,20 @@ def populate():
         for s in Story.objects.filter(genre=g):
             print ("- {0} - {1}".format(str(g),str(s)))
 
-def add_segment(story, segment, text, pub_date=datetime.date.today, option1,
+def add_segment(story, segment, text, pub_date, option1,
                 option2, option1votes= 0, option2votes=0):
-    se = Segment.objects.get_or_create(story=story, segment_number=segment, segment_text=text, pub_date=pub_date,
+     pub_date=datetime.date.today
+     se = Segment.objects.get_or_create(story=story, segment_number=segment, segment_text=text,
                                       option1=option1, option2=option2)[0]
-    se.option1votes=option1votes
-    se.option2votes=option2votes
-    se.save()
-    return se
+     se.pub_date=pub_date
+     se.option1votes=option1votes
+     se.option2votes=option2votes
+     se.save()
+     return se
 
 def add_story(gen, title, author, completed = False, votes = 0):
-    s = Story.objects.get_or_create(genre=gen, title = title)[0]
+    s = Story.objects.get_or_create(genre=gen, title=title, author=author)[0]
     s.completed=completed
-    s.author=author
     s.votes=votes
     s.save()
     return s

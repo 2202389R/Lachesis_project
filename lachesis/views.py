@@ -76,6 +76,7 @@ def add_story(request, genre_name_slug):
             if genre:
                 story = form.save(commit=False)
                 story.genre = genre
+                story.author = request.user
                 story.votes = 0
                 story.save()
                 return show_genre(request, genre_name_slug)
