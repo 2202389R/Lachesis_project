@@ -14,14 +14,14 @@ def populate():
      # through each data structure, and add the data to our models.
 
      fairytale_stories = [
-          {"title": "Cinderella", "author": "Charles Perrault",
+          {"title": "Cinderella", "author": 123,
            "completed": True, "votes": 54}]
 
      gens = {"Fairy Tales":{"stories":fairytale_stories, "votes":54}}
 
-     segments = {"Cinderella":{{"segment":1, "text": "hi", "Published": "2015-03-21",
+     segments = {"Cinderella":{"1":{ "text": "hi", "Published": "2015-03-21",
           "closed": True, "option1": "yes", "option2": "no", "option1votes": 34,
-                    "option2votes":65}, {"segment":2, "text": "bye", "Published": "2015-04-21",
+                    "option2votes":65}, "2":{ "text": "bye", "Published": "2015-04-21",
           "closed": True, "option1": "haha", "option2": "oh", "option1votes": 34,
                     "option2votes":65}}}
 
