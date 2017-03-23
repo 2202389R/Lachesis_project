@@ -1,3 +1,5 @@
 config/api_keys.py
 *.pyc
 *.sqlite3
+lachesis/migrations/*
+!lachesis/migrations/__init__.py

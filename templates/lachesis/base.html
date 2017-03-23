@@ -1,110 +1,96 @@
 <!DOCTYPE html>
 {% load staticfiles %}
 {% load lachesis_template_tags %}
-
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width = device-width, initial-scale = 1">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Lachesis</title>
+	<link rel="shortcut icon" href="{% static 'images/favicon.png' %}"/>
 
-		<title>lachesis-
-			{% block title_block %}
-				Lachesis
-			{% endblock %}
-		</title>
+    <!-- Bootstrap -->
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
-<link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
-<style type="text/css">
-body {
-  font-size: 62.5%;
-  font-family: arial, sans-serif;
-	background: url(http://wallpapercave.com/wp/ijo8KeK.jpg);
-	background-size: cover;
-}
-#Logo{
-  height: 100px;
-  width: 100px;
-	padding-top: 10px;
-}
-#websiteTitle{
-  font-size: 10em;
-  vertical-align: middle;
-  font-family: 'Pacifico', cursive;
-  padding-left: 15px;
-  color: #191970;
-}
-#websiteSlogan{
-  font-size: 5.4em;
-}
-/* Carousel Styling */
-.slide1{
-  background-image: url('bkgrnd1.png');
-  height: 500px;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
-}
-.slide2{
-  background-image: url('bkgrnd2.png');
-  height: 500px;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
-}
-.slide3{
-  background-image: url('bkgrnd3.png');
-  height: 500px;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
-}
-.carousel-caption h1{
-  font-size: 5.4em;
-  font-family: 'Pacifico', cursive;
-  padding-bottom: .4em;
-}
-.carousel-caption p{
-  font-size: 2em;
-}
-</style>
-</head>
-	<body>
-	<div class="container">
-  <div class="jumbotron">
-  <img src="{% static "images/logo.jpg" %}" id="Logo" alt="Lachesis website logo." />
-  <span id="websiteTitle">Lachesis</span>
-  <p id="websiteSlogan">The Interactive Story-Telling App</p>
-  </div>
-	</div>
-		<div>
-			{% block body_block %}
-			{% endblock %}
-		</div>
-		<hr />
-		<div style="background-color:powderblue;">
-			<ul>
-			{% if user.is_authenticated %}
-				<li><a href="{% url 'restricted' %}">Restricted Page</a></li>
-				<li><a href="{% url 'logout' %}">Logout</a></li>
-				<li><a href="{% url 'add_genre' %}">Add a New Genre</a></li>
-			{% else %}
-				<li><a href="{% url 'login' %}">Sign In</a><li>
-				<li><a href="{% url 'register' %}">Sign Up</a></li>
-			{% endif %}
-				<li><a href="{% url 'about' %}">About</a></li>
-				<li><a href="{% url 'index' %}">Index</a></li>
-			</ul>
-			{% block sidebar_block %}
-				{% get_genre_list genre %}
-			{% endblock %}
-		</div>
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 
-	<div id="theCarousel" class="carousel slide" data-ride="carousel">
-  <ol class="carousel-indicators">
-    <li data-target="#theCarousel" data-slide-to="0" class="active"> </li >
-    <li data-target="#theCarousel" data-slide-to="1"> </li>
-    <li data-target ="#theCarousel" data-slide-to="2"> </li>
-  </ol >
-	</body>
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+	<style>
+		body { padding-top: 60px; }
+
+	</style>
+
+  </head>
+  <body>
+
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+	  <div class="container-fluid">
+	    <!-- Brand and toggle get grouped for better mobile display -->
+	    <div class="navbar-header">
+	      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+	        <span class="sr-only">Toggle navigation</span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	      </button>
+	      <a class="navbar-brand" href="#">Lachesis</a>
+	    </div>
+
+	    <!-- Collect the nav links, forms, and other content for toggling -->
+	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+	      <ul class="nav navbar-nav">
+	        <li class="active"><a href="#">Home <span class="sr-only">(current)</span></a></li>
+	        <li><a href="#">New</a></li>
+			<li class="dropdown">
+	          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Genres <span class="caret"></span></a>
+	          <ul class="dropdown-menu">
+	            <li><a href="#">Action</a></li>
+	            <li><a href="#">Another action</a></li>
+	            <li><a href="#">Something else here</a></li>
+	            <li role="separator" class="divider"></li>
+	            <li><a href="#">Separated link</a></li>
+	            <li role="separator" class="divider"></li>
+	            <li><a href="#">One more separated link</a></li>
+	          </ul>
+	        </li>
+			<li><a href="#">Profile</a></li>
+			<li><a href="{% url 'about' %}">About</a></li>
+	      </ul>
+	      <ul class="nav navbar-nav navbar-right">
+			<div class="btn-toolbar">
+				<a href="{% url 'login' %}" class="btn btn-default navbar-btn" role="button">Sign in</a>
+				<a href="{% url 'register' %}" class="btn btn-default navbar-btn" role="button">Register</a>
+			</div>
+	      </ul>
+	    </div><!-- /.navbar-collapse -->
+	  </div><!-- /.container-fluid -->
+	</nav>
+
+
+    <h1>
+		Hello, world!Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ut vehicula enim. Ut rhoncus lectus dolor. Proin ultrices euismod elit, vitae fermentum purus. Sed finibus ipsum quis magna consectetur, eu porta nisi faucibus. Integer ac lacus sed nunc commodo vehicula eget a tellus. In finibus arcu ut sodales sagittis. Sed viverra metus vel risus pulvinar pellentesque. Nulla a mi facilisis, molestie erat quis, luctus augue.
+
+		Vivamus tellus nisl, venenatis consequat nisi eget, fringilla venenatis elit. Nunc rhoncus porta porta. Duis posuere, ex in ullamcorper tempor, augue mi posuere quam, vel cursus nisi sem vitae dolor. Duis ac augue ut eros condimentum rutrum. Nulla tincidunt tincidunt ex. Sed quis ultrices risus. Proin euismod dignissim pulvinar. In ornare diam venenatis auctor fringilla. Phasellus a rutrum lorem. Praesent non ultrices tortor, a semper tortor. Maecenas nec augue vitae tellus pretium ornare et vitae leo. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Maecenas in tellus eu purus tempor rutrum.
+
+		Mauris molestie mollis facilisis. Donec nunc risus, fermentum eu pulvinar a, accumsan sed ante. Donec consequat massa id mauris lacinia, et viverra nisi consectetur. Suspendisse vulputate turpis eu sapien tincidunt, nec imperdiet lacus congue. Sed lobortis sed quam non lobortis. Curabitur eu tellus neque. Quisque interdum varius consequat. Aenean hendrerit blandit diam vitae rhoncus. Quisque non molestie risus, eu imperdiet lectus. Sed eget mi rutrum, imperdiet nulla nec, condimentum orci. Aliquam elit tortor, pulvinar nec purus in, vulputate placerat urna.
+
+		Nullam in urna sed metus malesuada venenatis. Sed molestie nisl nec diam maximus dictum. Maecenas dolor ligula, sagittis sit amet ullamcorper nec, ultricies accumsan erat. Quisque eleifend velit risus, ut vestibulum ex consectetur sit amet. Donec posuere eros eros, finibus lobortis arcu varius vitae. Nulla facilisi. In dignissim semper ipsum, ut tincidunt ligula consequat sit amet. Donec ut rutrum metus, non auctor tortor. Pellentesque tempus id libero in sollicitudin. Praesent blandit malesuada consectetur. Duis vehicula quam dui, faucibus sagittis est scelerisque vitae. Vivamus nec sagittis tellus. Aenean nibh neque, euismod sed lobortis porttitor, consequat vitae felis. Suspendisse erat dui, porttitor eget dolor non, sodales congue sem.
+
+		Pellentesque sed pretium neque. Proin id massa varius, volutpat nibh a, sodales sem. Quisque molestie euismod dapibus. Pellentesque facilisis iaculis sapien, id lobortis nisl congue sit amet. Sed eleifend mauris risus, a consectetur nibh mattis facilisis. Vestibulum aliquet lectus et ornare euismod. Sed eget iaculis ipsum. Nam rutrum dictum tortor, non lobortis mi porttitor id.
+	</h1>
+
+
+
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+  </body>
 </html>
