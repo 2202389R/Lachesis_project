@@ -2,6 +2,7 @@ import os
 os.environ.setdefault('DJANGO_SETTINGS_MODULE',
                       'Lachesis_group_project.settings')
 import django
+import datetime
 django.setup()
 from lachesis.models import Genre, Story, Segment
 
@@ -55,8 +56,8 @@ def populate():
         for s in Story.objects.filter(genre=g):
             print ("- {0} - {1}".format(str(g),str(s)))
 
-def add_segment(story, segment, text, pub_date=datetime.date.today, option1,
-                option2, option1votes= 0, option2votes=0):
+def add_segment(story, segment, text, pub_date=datetime.date.today, option1= "something",
+                option2 = "something else", option1votes= 0, option2votes=0):
     s = Segment.objects.get_or_create(story=story, segment=segment, segment_text=text, pub_date=pub_date,
                                       option1=option1, option2=option2,
                                       option1votes=option1votes, option2votes=option2votes)[0]
