@@ -2,22 +2,87 @@
 {% load staticfiles %}
 {% load lachesis_template_tags %}
 
-<html>
-	<head>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width = device-width, initial-scale = 1">
+
 		<title>lachesis-
 			{% block title_block %}
-				Welcome to Lachesis!
+				Lachesis
 			{% endblock %}
 		</title>
-	</head>
 
+<link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+<style type="text/css">
+body {
+  font-size: 62.5%;
+  font-family: arial, sans-serif;
+	background: url(http://wallpapercave.com/wp/ijo8KeK.jpg);
+	background-size: cover;
+}
+#Logo{
+  height: 100px;
+  width: 100px;
+	padding-top: 10px;
+}
+#websiteTitle{
+  font-size: 10em;
+  vertical-align: middle;
+  font-family: 'Pacifico', cursive;
+  padding-left: 15px;
+  color: #191970;
+}
+#websiteSlogan{
+  font-size: 5.4em;
+}
+/* Carousel Styling */
+.slide1{
+  background-image: url('bkgrnd1.png');
+  height: 500px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+.slide2{
+  background-image: url('bkgrnd2.png');
+  height: 500px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+.slide3{
+  background-image: url('bkgrnd3.png');
+  height: 500px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+.carousel-caption h1{
+  font-size: 5.4em;
+  font-family: 'Pacifico', cursive;
+  padding-bottom: .4em;
+}
+.carousel-caption p{
+  font-size: 2em;
+}
+</style>
+</head>
 	<body>
+	<div class="container">
+  <div class="jumbotron">
+  <img src="{% static "images/logo.jpg" %}" id="Logo" alt="Lachesis website logo." />
+  <span id="websiteTitle">Lachesis</span>
+  <p id="websiteSlogan">The Interactive Story-Telling App</p>
+  </div>
+	</div>
 		<div>
 			{% block body_block %}
 			{% endblock %}
 		</div>
 		<hr />
-		<div>
+		<div style="background-color:powderblue;">
 			<ul>
 			{% if user.is_authenticated %}
 				<li><a href="{% url 'restricted' %}">Restricted Page</a></li>
@@ -30,12 +95,16 @@
 				<li><a href="{% url 'about' %}">About</a></li>
 				<li><a href="{% url 'index' %}">Index</a></li>
 			</ul>
+			{% block sidebar_block %}
+				{% get_genre_list genre %}
+			{% endblock %}
 		</div>
 
-	<div>
-		{% block sidebar_block %}
-			{% get_genre_list genre %}
-		{% endblock %}
-	</div>
+	<div id="theCarousel" class="carousel slide" data-ride="carousel">
+  <ol class="carousel-indicators">
+    <li data-target="#theCarousel" data-slide-to="0" class="active"> </li >
+    <li data-target="#theCarousel" data-slide-to="1"> </li>
+    <li data-target ="#theCarousel" data-slide-to="2"> </li>
+  </ol >
 	</body>
 </html>

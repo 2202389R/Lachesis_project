@@ -7,7 +7,7 @@
 
 {% block body_block %}
 	<div>
-		<h1>Lachesis</h1>
+		<h1> </h1
 			{% if user.is_authenticated %}
 				hello author {{ user.username }}!
 			{% else %}
@@ -35,7 +35,7 @@
 
 		<div>
 			<div>
-				<h3>Most Viewed Pages</h3>
+				<h3>Most Liked Stories</h3>
 			</div>
 
 		{% if stories %}
@@ -45,10 +45,7 @@
 			{% endfor %}
 		</ul>
 		{% else%}
-			<strong>There are no genres present.</strong>
+			<strong>There are no stories present.</strong>
 		{% endif %}
 		</div>
-
-			<p> visits: {{ visits }}</p>
-			<img src="{% static "images/lachesis.jpg" %}" alt="Picture of lachesis" />
 {% endblock %}
