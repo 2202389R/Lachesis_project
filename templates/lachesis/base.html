@@ -20,7 +20,7 @@
 	<!-- Latest compiled and minified JavaScript -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="{% static "css/bootstrap.min.css" %}" rel="stylesheet">
 
 	<style>
 		body { padding-top: 60px; }
@@ -51,21 +51,38 @@
 	          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Genres <span class="caret"></span></a>
 	          <ul class="dropdown-menu">
 	            <li><a href="#">Action</a></li>
-	            <li><a href="#">Another action</a></li>
-	            <li><a href="#">Something else here</a></li>
+                <li role="separator" class="divider"></li>
+	            <li><a href="#">Crime</a></li>
+                <li role="separator" class="divider"></li>
+	            <li><a href="#">Drama</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="#">Fairytale</a></li>
 	            <li role="separator" class="divider"></li>
-	            <li><a href="#">Separated link</a></li>
+	            <li><a href="#">Romance</a></li>
 	            <li role="separator" class="divider"></li>
-	            <li><a href="#">One more separated link</a></li>
+	            <li><a href="#">Sci-Fi</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="#">Thriller</a></li>
 	          </ul>
 	        </li>
-			<li><a href="#">Profile</a></li>
+            {% if user.is_authenticated %}
+    			<li><a href="#">Profile</a></li>
+            {% endif %}
 			<li><a href="{% url 'about' %}">About</a></li>
 	      </ul>
 	      <ul class="nav navbar-nav navbar-right">
 			<div class="btn-toolbar">
-				<a href="{% url 'login' %}" class="btn btn-default navbar-btn" role="button">Sign in</a>
-				<a href="{% url 'register' %}" class="btn btn-default navbar-btn" role="button">Register</a>
+
+                {% if user.is_authenticated %}
+
+    				<a href="{% url 'register' %}" class="btn btn-danger navbar-btn" role="button">Logout</a>
+
+
+                {% else %}
+
+    				<a href="{% url 'login' %}" class="btn btn-default navbar-btn" role="button">Sign in</a>
+    				<a href="{% url 'register' %}" class="btn btn-default navbar-btn" role="button">Register</a>
+                {% endif %}
 			</div>
 	      </ul>
 	    </div><!-- /.navbar-collapse -->
@@ -73,6 +90,6 @@
 	</nav>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
+    <script src="{% static "js/bootstrap.min.js" %}"></script>
   </body>
 </html>
