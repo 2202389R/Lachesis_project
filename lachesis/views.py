@@ -3,7 +3,7 @@ from lachesis.forms import StoryForm
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from lachesis.models import Genre
-from lachesis.models import Story
+from lachesis.models import Story, Segment
 from lachesis.forms import UserForm, UserProfileForm
 from django.contrib.auth import authenticate, login
 from django.core.urlresolvers import reverse
@@ -37,7 +37,7 @@ def show_genre(request, genre_name_slug):
 	context_dict = {}
 
 	try:
-		genre = Genre.objects.get(slug=category_name_slug)
+		genre = Genre.objects.get(slug=genre_name_slug)
 		stories = Story.objects.filter(genre=genre)
 		context_dict['stories'] = stories
 		context_dict['genre'] = genre
@@ -46,8 +46,22 @@ def show_genre(request, genre_name_slug):
 		context_dict['genre'] = None
 		context_dict['stories'] = None
 
-	return render(request, 'lachesis/category.html', context_dict)
+	return render(request, 'lachesis/genre.html', context_dict)
 
+def show_story(request, story_name_slug):
+	context_dict = {}
+
+	try:
+		story = Story.objects.get(slug=story_name_slug)
+		segments = Segment.objects.filter(genre=genre)
+		context_dict['segments'] = segments
+		context_dict['story'] = story
+
+	except Story.DoesNotExist:
+		context_dict['story'] = None
+		context_dict['segments'] = None
+
+	return render(request, 'lachesis/story.html', context_dict)
 
 def add_genre(request):
     form = GenreForm()
@@ -76,7 +90,7 @@ def add_story(request, genre_name_slug):
             if genre:
                 story = form.save(commit=False)
                 story.genre = genre
-                story.views = 0
+                story.votes = 0
                 story.save()
                 return show_genre(request, genre_name_slug)
         else:
@@ -84,7 +98,7 @@ def add_story(request, genre_name_slug):
 
     context_dict = {'form':form, 'genre': genre}
     
-    return render(request, 'rango/add_story.html', context_dict)
+    return render(request, 'lachesis/add_story.html', context_dict)
 
 def register(request):
     registered = False

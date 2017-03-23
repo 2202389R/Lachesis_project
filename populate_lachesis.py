@@ -14,7 +14,7 @@ def populate():
      # through each data structure, and add the data to our models.
 
      fairytale_stories = [
-          {"title": "Cinderella", "author": 123,
+          {"title": "Cinderella", "author": "123",
            "completed": True, "votes": 54}]
 
      gens = {"Fairy Tales":{"stories":fairytale_stories, "votes":54}}
@@ -48,7 +48,7 @@ def populate():
      for s in Story.objects.all():
          for se in segments.items():
               
-             add_segment(s, se["text"], se["pub_date"], se["option1"], se["option2"],
+             add_segment(s, se,  se["text"], se["pub_date"], se["option1"], se["option2"],
                          se["option1votes"], se["option2votes"])
 
      #print out the categories we have added
@@ -56,8 +56,8 @@ def populate():
         for s in Story.objects.filter(genre=g):
             print ("- {0} - {1}".format(str(g),str(s)))
 
-def add_segment(story, segment, text, pub_date=datetime.date.today, option1= "something",
-                option2 = "something else", option1votes= 0, option2votes=0):
+def add_segment(story, segment, text, pub_date=datetime.date.today, option1,
+                option2, option1votes= 0, option2votes=0):
     s = Segment.objects.get_or_create(story=story, segment=segment, segment_text=text, pub_date=pub_date,
                                       option1=option1, option2=option2,
                                       option1votes=option1votes, option2votes=option2votes)[0]
