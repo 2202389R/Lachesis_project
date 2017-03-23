@@ -13,12 +13,12 @@ from datetime import datetime
 
 
 def index(request):
-    genre_list = Genre.objects.order_by('-votes')[:5]
+    genre_list = Genre.objects.order_by('-views')[:5]
     story_list = Story.objects.order_by('-votes')[:5]
     context_dict = {'genres': genre_list, 'stories': story_list}
 
     visitor_cookie_handler(request)
-    context_dict['votes'] = request.session['votes']
+    context_dict['visits'] = request.session['visits']
 
     response = render(request, 'lachesis/index.html', context_dict)
     return response
@@ -26,7 +26,7 @@ def index(request):
 def about(request):
     context_dict = {}
     visitor_cookie_handler(request)
-    context_dict['votes'] = request.session['votes']
+    context_dict['visits'] = request.session['visits']
     print(request.method)
     print(request.user)
     response = render(request, 'lachesis/about.html', context_dict)
@@ -165,14 +165,14 @@ def get_server_side_cookie(request, cookie, default_val=None):
     return val
 
 def visitor_cookie_handler(request):
-    votes = int(get_server_side_cookie(request, 'votes', '1'))
+    visits = int(get_server_side_cookie(request, 'visits', '1'))
 
-    last_vote_cookie = get_server_side_cookie(request,'last_vote',str(datetime.now()))
-    last_vote_time = datetime.strptime(last_vote_cookie[:-7],'%Y-%m-%d %H:%M:%S')
-    if (datetime.now() - last_vote_time).days > 0:
-        votes = votes + 1
-        request.session['last_vote'] = str(datetime.now())
+    last_visit_cookie = get_server_side_cookie(request,'last_visit',str(datetime.now()))
+    last_visit_time = datetime.strptime(last_visit_cookie[:-7],'%Y-%m-%d %H:%M:%S')
+    if (datetime.now() - last_visit_time).days > 0:
+        visits = visits + 1
+        request.session['last_visit'] = str(datetime.now())
     else:
         votes = 1
-        request.session['last_vote'] = last_vote_cookie
-    request.session['votes'] = votes
+        request.session['last_visit'] = last_visit_cookie
+    request.session['visits'] = visits

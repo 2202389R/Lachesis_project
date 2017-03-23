@@ -8,15 +8,12 @@ from django.contrib.auth.models import User
 
 class Genre(models.Model):
     name = models.CharField(max_length=128, unique=True)
-    votes = models.IntegerField(default=0)
-    stories = models.IntegerField(default=0)
+    views = models.IntegerField(default=0)
     slug = models.SlugField(unique=True)
     
     def save(self, *args, **kwargs):
-        if self.votes < 0:
-            self.votes = 0
-        if self.stories < 0:
-            self.stories = 0
+        if self.views < 0:
+            self.views = 0
         self.slug = slugify(self.name)
         super(Genre, self).save(*args, **kwargs)
 
