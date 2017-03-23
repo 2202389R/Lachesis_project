@@ -5,7 +5,7 @@ urlpatterns=[
     url(r'^$', views.index, name='index'),
     url(r'^about/$', views.about, name='about'),
     url(r'^add_genre/$', views.add_genre, name='add_genre'),
-    url(r'^genre/(?P<genre_name_slug>[\w\-]+)/$', 
+    url(r'^genre/(?P<genre_name_slug>[\w\-]+)/$',
         views.show_genre, name='show_genre'),
     url(r'^genre/(?P<genre_name_slug>[\w\-]+)/add_story/$',
         views.add_story, name='add_story'),
