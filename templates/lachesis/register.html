@@ -25,7 +25,7 @@
 <div class="col-md-6">
 				 {% if registered %}
                             <strong>thank you for registering!</strong>
-                            <a type="button" class="btn btn-primary" href="{% url 'app:index' %}">Return to the homepage.</a><br />
+                            <a type="button" class="btn btn-primary" href="{% url 'index' %}">Return to the homepage.</a><br />
                         {% else %}
 
         				<form id="user_form" method="post" action="{% url 'register' %}" enctype="multipart/form-data">
