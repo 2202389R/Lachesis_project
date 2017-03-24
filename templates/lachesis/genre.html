@@ -8,13 +8,11 @@
 {% block body_block %}
 	{% if genre %}
 		<h1>{{ genre.name }}</h1>
-		{% if storys %}
+		{% if stories_genre %}
 			<u1>
-			{% for story in stories %}
+			{% for story in stories_genre %}
 				<li><a href="{{ story.url }}">{{ story.title }}</a></li>
 			{% endfor %}
-			<a href="/lachesis/genre/{{genre.slug}}/add_story/">Add Story</a> <br/>
-			<a href="/lachesis/">View index story</a><br />
 			</ul>
 		{% else %}
 			<strong>No stories currently in genre.</strong>

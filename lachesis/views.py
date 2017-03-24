@@ -1,10 +1,7 @@
-from lachesis.forms import GenreForm
-from lachesis.forms import StoryForm
+from lachesis.forms import *
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
-from lachesis.models import Genre
-from lachesis.models import Story, Segment
-from lachesis.forms import UserForm, UserProfileForm
+from lachesis.models import Genre, Story, Segment
 from django.contrib.auth import authenticate, login
 from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
@@ -16,16 +13,13 @@ story_list = Story.objects.order_by('-votes')
 context_dict = {'genres': genre_list, 'stories': story_list}
 
 def index(request):
-
-    visitor_cookie_handler(request)
-    context_dict['visits'] = request.session['visits']
-
+    
+    story_list = Story.objects.order_by('-votes')[:10]
+    context_dict['stories_liked']=story_list
     response = render(request, 'lachesis/index.html', context_dict)
     return response
 
 def about(request):
-    visitor_cookie_handler(request)
-    context_dict['visits'] = request.session['visits']
     print(request.method)
     print(request.user)
     response = render(request, 'lachesis/about.html', context_dict)
@@ -33,18 +27,16 @@ def about(request):
 
 
 def show_genre(request, genre_name_slug):
-	context_dict = {}
-
 	try:
 		genre = Genre.objects.get(slug=genre_name_slug)
 		
 		stories = Story.objects.filter(genre=genre)
-		context_dict['stories'] = stories
+		context_dict['stories_genre'] = stories
 		context_dict['genre'] = genre
 
 	except Genre.DoesNotExist:
 		context_dict['genre'] = None
-		context_dict['stories'] = None
+		context_dict['stories_genre'] = None
 
 	return render(request, 'lachesis/genre.html', context_dict)
 
@@ -59,8 +51,8 @@ def add_genre(request):
             return index(request)
         else:
             print(form.errors)
-
-    return render(request, 'lachesis/add_genre.html', {'form': form})
+    context_dict['form'] = form
+    return render(request, 'lachesis/add_genre.html', context_dict)
 
 def add_story(request, genre_name_slug):
     try:
@@ -73,7 +65,7 @@ def add_story(request, genre_name_slug):
         form = StoryForm(request.POST)
         if form.is_valid():
             if genre:
-                story = form.save(commit=False)
+                story = form.save(commit=True)
                 story.genre = genre
                 story.author = request.user
                 story.votes = 0
@@ -82,7 +74,8 @@ def add_story(request, genre_name_slug):
         else:
             print(form.errors)
 
-    context_dict = {'form':form, 'genre': genre}
+    context_dict['form']=form
+    context_dict['genre']= genre
     
     return render(request, 'lachesis/add_story.html', context_dict)
 
@@ -135,12 +128,25 @@ def user_login(request):
     else:
         return render(request, 'lachesis/user_login.html', {})
 
+def edit_profile(request):
+    form = EditProfileForm()
+    if request.method == 'POST':
+        form = EditProfileForm(request.POST)
+
+        if form.is_valid():
+            form.save()
+            return HttpResponse(reverse('profile'))
+        else:
+            print(form.errors)
+    context_dict['form']=form
+    return render(request, 'lachesis/profile.html', context_dict)
+
 @login_required
 def restricted(request):
     return render(request, 'lachesis/restricted.html', {})
 
 def profile(request):
-    return render(request, 'lachesis/profile.html', {})
+    return render(request, 'lachesis/profile.html',context_dict)
 
 @login_required
 def user_logout(request):

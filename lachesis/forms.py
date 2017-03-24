@@ -48,3 +48,9 @@ class UserProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile
         fields = ('picture',)
+
+class EditProfileForm(forms.ModelForm):
+
+    class Meta:
+        model = User
+        fields = ('email','password',)

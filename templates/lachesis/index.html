@@ -11,28 +11,12 @@
 			{% if user.is_authenticated %}
 				<div>
 					<div>
-						<h3>Most Liked Genres</h3>
+						<h3>Most Voted Stories</h3>
 					</div>
 
-				{% if genres %}
+				{% if stories_liked %}
 					<ul>
-						{% for genre in genres %}
-							<li>
-								<a href="{% url 'show_genre' genre.slug %}">{{ genre.name }}</a>
-							</li>
-						{% endfor %}
-					</ul>
-				{% else%}
-					<strong>There are no genres present.</strong>
-				{% endif %}
-
-					<div>
-						<h3>Most Liked Stories</h3>
-					</div>
-
-				{% if stories %}
-					<ul>
-						{% for story in stories %}
+						{% for story in stories_liked %}
 							<li><a href="{{ story.url }}">{{ story.title }}</a></li>
 						{% endfor %}
 					</ul>
