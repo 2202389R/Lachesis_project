@@ -51,7 +51,7 @@ class Segment(models.Model):
     option2 = models.TextField(max_length=1000)
     option1votes = models.IntegerField(default=0)
     option2votes = models.IntegerField(default=0)
-    #slug = models.SlugField(unique=True)
+    slug = models.SlugField(unique=True)
 
     def save(self, *args, **kwargs):
         if self.option1votes < 0:

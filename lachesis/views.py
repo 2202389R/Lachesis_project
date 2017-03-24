@@ -43,12 +43,13 @@ def show_genre(request, genre_name_slug):
 def show_story(request, story_name_slug):
     try:
         story = Story.objects.get(slug=story_name_slug)
+        segments = Segment.objects.filter(story=story)
+        context_dict['segments_story'] = segments
         context_dict['story'] = story
     except Story.DoesNotExist:
         context_dict['story'] = None
+        context_dict['segments_story'] = None 
 
-    
-    
     return render(request, 'lachesis/story.html', context_dict)
 
 def add_genre(request):
@@ -102,9 +103,6 @@ def add_segment(request, story_name_slug):
             if story:
                 segment = form.save(commit=True)
                 segment.story = story
-                segment.segment_text=segment_text
-                segment.option1 = option1
-                segment.option2 = option2
                 segment.save()
                 return show_story(request, story_name_slug)
         else:

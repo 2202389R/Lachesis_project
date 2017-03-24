@@ -6,9 +6,26 @@
 {% endblock %}
 
 {% block body_block %}
+	{% if story %}
+	
+		<h3>{{ story.title }}</h3>
+		
+		{% if segments_story %}
+			<u1>
+			{% for segment in segments_story %}
+				<li>{{ segment.segment_number }}</li>
+			{% endfor %}
+			</ul>
+		{% else %}
+			<strong>No segments currently in story.</strong>
+		{% endif %}
+
 		<li>
 			<a href="{% url 'add_segment' story.slug %}">Add Segment</a><br/>
 		</li>
 
+	{% else %}
+		The specified story does not exist!
+	{% endif %}
 	</div>
 {% endblock %}
