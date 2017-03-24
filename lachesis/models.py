@@ -4,8 +4,7 @@ from django.utils import timezone
 from django.db import models
 from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
-
-
+		
 class Genre(models.Model):
     name = models.CharField(max_length=128, unique=True)
     views = models.IntegerField(default=0)
@@ -24,10 +23,10 @@ class Genre(models.Model):
 class Story(models.Model):
     genre = models.ForeignKey(Genre)
     title = models.CharField(max_length=128)
-    author = models.ForeignKey(User)
+    author = models.ForeignKey(User, null=True, blank=False)
     votes = models.IntegerField(default=0)
     completed = models.BooleanField(default=False)
-    slug = models.SlugField(unique=True)
+    #slug = models.SlugField(unique=True)
 
     class Meta:
         verbose_name_plural = 'Stories'
@@ -35,7 +34,6 @@ class Story(models.Model):
     def save(self, *args, **kwargs):
         if self.votes < 0:
             self.votes =0
-
         self.slug = slugify(self.title)
         super(Story, self).save(*args, **kwargs)
         
@@ -84,3 +82,5 @@ class UserSegment(models.Model):
     option = models.CharField(max_length=1)
     story = models.ForeignKey(Story)
     segment = models.ForeignKey(Segment)
+	
+
