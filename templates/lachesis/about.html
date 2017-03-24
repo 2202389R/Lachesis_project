@@ -7,9 +7,29 @@
 
 {% block body_block %}
 
+<style>
+img {
+  width: 400px;
+  height: 500px;
+  float: left;
+}
+body{
+  font-family: eczar;
+  width: 70%;
+  margin: 40px auto;
+  background-color: AliceBlue;
+  padding: 20px 40px;
+  box-shadow: 0 0 20px #999;
+}
+h1{
+  text-align: center;
+  margin-top: 0;
+}
+</style>
 	<div>
 		<h1>About Page</h1>
-		<font size="4">The purpose of our application is to provide a platform where short story writers connect with their readers.<br></br>
+		<img src="{% static "images/lachesis.jpg" %}" alt="Picture of Lachesis" />
+		<font size="5">The purpose of our application is to provide a platform where short story writers connect with their readers.<br></br>
 
 		The application will enable writer to provide choices for their readers at specific points in their story. The readers will then be given a time period in which they can vote on what direction they desire the story to take. When the voting period ends, the writer will then continue the story according to the most popular choice unitl another reader decision has to be made.<br></br>
 
