@@ -14,4 +14,4 @@ class SegmentAdmin(admin.ModelAdmin):
 admin.site.register(Genre, GenreAdmin)
 admin.site.register(Story, StoryAdmin)
 admin.site.register(Segment, SegmentAdmin)
-#admin.site.register(UserProfile)
+admin.site.register(UserProfile)

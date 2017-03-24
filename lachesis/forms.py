@@ -15,9 +15,10 @@ class GenreForm(forms.ModelForm):
 class StoryForm(forms.ModelForm):
     title = forms.CharField(max_length=128, help_text="Please enter the title of the story.")
     votes = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
-    author = forms.CharField(widget=forms.HiddenInput(), initial='auth.User')
+    author = forms.CharField(widget=forms.HiddenInput(), initial=User)
+    completed = forms.BooleanField(widget=forms.HiddenInput(), initial=False)
     slug = forms.CharField(widget=forms.HiddenInput(), required=False)
-
+    
     class Meta:
         model = Story
         exclude = ('genre',)

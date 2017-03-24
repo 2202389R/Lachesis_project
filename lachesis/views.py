@@ -11,11 +11,11 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
 from datetime import datetime
 
+genre_list = Genre.objects.order_by('-views')
+story_list = Story.objects.order_by('-votes')
+context_dict = {'genres': genre_list, 'stories': story_list}
 
 def index(request):
-    genre_list = Genre.objects.order_by('-views')[:5]
-    story_list = Story.objects.order_by('-votes')[:5]
-    context_dict = {'genres': genre_list, 'stories': story_list}
 
     visitor_cookie_handler(request)
     context_dict['visits'] = request.session['visits']
@@ -24,7 +24,6 @@ def index(request):
     return response
 
 def about(request):
-    context_dict = {}
     visitor_cookie_handler(request)
     context_dict['visits'] = request.session['visits']
     print(request.method)
@@ -139,6 +138,9 @@ def user_login(request):
 @login_required
 def restricted(request):
     return render(request, 'lachesis/restricted.html', {})
+
+def profile(request):
+    return render(request, 'lachesis/profile.html', {})
 
 @login_required
 def user_logout(request):

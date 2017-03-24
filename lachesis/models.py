@@ -23,9 +23,8 @@ class Genre(models.Model):
 
 class Story(models.Model):
     genre = models.ForeignKey(Genre)
-    id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=128)
-    author = models.ForeignKey('auth.User')
+    author = models.ForeignKey(User)
     votes = models.IntegerField(default=0)
     completed = models.BooleanField(default=False)
     slug = models.SlugField(unique=True)

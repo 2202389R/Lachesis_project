@@ -57,19 +57,19 @@
 	          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Genres <span class="caret"></span></a>
 	          <ul class="dropdown-menu">
 	            {% if genres %}
-				<ul>
-					{% for genre in genres %}
-					<li>
-						<a href="{% url 'show_genre' genre.slug %}">{{ genre.name }}</a>
-					</li>
-					{% endfor %}
-				</ul>
+					<ul>
+						{% for genre in genres %}
+							<li>
+								<a href="{% url 'show_genre' genre.slug %}">{{ genre.name }}</a>
+							</li>
+						{% endfor %}
+					</ul>
 				{% else%}
 					<strong>There are no genres present.</strong>
 				{% endif %}
 	          </ul>
 	        </li>
-    			<li><a href="#">Profile</a></li>
+    			<li><a href="{% url 'profile' %}">Profile</a></li>
             {% endif %}
 	      </ul>
 	      <ul class="nav navbar-nav navbar-right">
