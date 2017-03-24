@@ -1,13 +1,16 @@
 {% extends 'lachesis/base.html' %}
 {% load staticfiles %}
 
-{% block title_block %}
-	Login
-{% endblock %}
-
 {% block body_block %}
-<h1>Login to lachesis</h1>
+<link href="{% static "css/login.css" %}" rel="stylesheet">
+<div class="container" align="centre">
+<div id="content" class="container">
+	<p id="websiteTitle">Lachesis</p>
+	<p id="websiteSlogan">Interactive Storytelling - Login</p>
+</div>
+
 	<form id="login_form" method="post" action="{% url 'login' %}">
+	
 	{% csrf_token %}
 	Username: <input type="text" name="username" value="" size="50" />
 	<br />
@@ -15,4 +18,7 @@
 	<br />
 	<input type="submit" value="submit" />
 	</form>
+
 {% endblock %}
+</div>
+</div>

@@ -1,0 +1,41 @@
+#websiteTitle{
+    font-size: 10em;
+    vertical-align: middle;
+    font-family: 'Pacifico', cursive;
+    padding-left: 15px;
+    color: #191970;
+    text-align: center;
+}
+#websiteSlogan{
+    font-size: 2em;
+    vertical-align: middle;
+    font-family: arial, sans-serif;
+    padding-left: 15px;
+    color: #191970;
+    text-align: center;
+}
+/* Full-width inputs */
+    input[type=text], input[type=password] {
+        width: 100%;
+        color: black;
+        border-radius: 15px;
+        padding: 14px 20px;
+        display: inline-block;
+        border: 2px solid black #ccc;
+        box-sizing: border-box;
+
+    }
+
+     /* Set a style for all buttons */
+    input[type=submit] {
+
+        background-color: #16a11b;
+        color: white;
+        border-radius: 15px;
+        padding: 13px 20px;
+        margin: 8px 0;
+        border: none;
+        cursor: pointer;
+        width: 100%;
+        box-sizing: border-box;
+    }
