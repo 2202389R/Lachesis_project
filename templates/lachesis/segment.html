@@ -9,6 +9,20 @@
 	{% if story %}
 	
 		<h3>{{ segment.segment_number }}</h3>
+		<br>
+			{{ segment.segment_text }}
+		</br>
+		
+		<br>
+			Voting closed: {{ segment.closed }}
+		</br>
+		
+		<br>
+		{% if segment.closed == False %}
+			Option 1: {{ segment.option1 }}
+			Option 2: {{ segment.option2 }}
+		{% endif %}
+		</br>
 
 	{% else %}
 		The specified story does not exist!

@@ -13,16 +13,18 @@
 		{% if segments_story %}
 			<u1>
 			{% for segment in segments_story %}
-				<li><a href="{% url 'show_segment' segment.slug %}">{{ segment.segment_number }}</a></li>
+				<br><a href="{% url 'show_segment' segment.slug %}">{{ segment.segment_number }}</a></br>
 			{% endfor %}
 			</ul>
 		{% else %}
 			<strong>No segments currently in story.</strong>
 		{% endif %}
-
-		<li>
-			<a href="{% url 'add_segment' story.slug %}">Add Segment</a><br/>
-		</li>
+		
+		{% if story.completed == False %}
+			<li>
+				<a href="{% url 'add_segment' story.slug %}">Add Segment</a><br/>
+			</li>
+		{% endif %}
 
 	{% else %}
 		The specified story does not exist!
