@@ -24,7 +24,7 @@ class StoryForm(forms.ModelForm):
 
 class SegmentForm(forms.ModelForm):
     segment_number = forms.CharField(max_length=128, help_text="Please enter the title of the segment.")
-    segment_text = forms.CharField(max_length=10000)
+    segment_text = forms.CharField(max_length=10000, help_text="Please enter segment text.")
     pub_date = forms.DateTimeField(initial=datetime.date.today())
     closed = forms.BooleanField(widget=forms.HiddenInput(), initial=False)
     option1 = forms.CharField(max_length=1000, help_text="Please enter option 1")

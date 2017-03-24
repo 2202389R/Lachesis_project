@@ -79,7 +79,6 @@ def add_story(request, genre_name_slug):
                 story = form.save(commit=True)
                 story.genre = genre
                 story.author = request.user
-                story.votes = 0
                 story.save()
                 return show_genre(request, genre_name_slug)
         else:
@@ -89,6 +88,32 @@ def add_story(request, genre_name_slug):
     context_dict['genre']= genre
     
     return render(request, 'lachesis/add_story.html', context_dict)
+
+def add_segment(request, story_name_slug):
+    try:
+        story = Story.objects.get(slug=story_name_slug)
+    except Story.DoesNotExist:
+        story = None
+
+    form = SegmentForm()
+    if request.method == 'POST':
+        form = SegmentForm(request.POST)
+        if form.is_valid():
+            if story:
+                segment = form.save(commit=True)
+                segment.story = story
+                segment.segment_text=segment_text
+                segment.option1 = option1
+                segment.option2 = option2
+                segment.save()
+                return show_story(request, story_name_slug)
+        else:
+            print(form.errors)
+
+    context_dict['form']=form
+    context_dict['story']= story
+    
+    return render(request, 'lachesis/add_segment.html', context_dict)
 
 def register(request):
     registered = False
