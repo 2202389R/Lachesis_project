@@ -9,18 +9,20 @@
 	<div>
 		<h1> </h1>
 			{% if user.is_authenticated %}
-				<div>
+				<div class="col-md-12" align="centre">
 					<div>
 						<h3>Most Voted Stories</h3>
 					</div>
 
 				{% if stories_liked %}
-					<ul>
+					<ul class="list-group">
 						{% for story in stories_liked %}
-							<li><a href="{{ story.url }}">{{ story.title }}</a></li>
+								<button type="button" class="list-group-item" href="{{ story.url }}">{{ story.title }}
+								<span class="badge">{{ story.genre }}</span></button>
+							</ul>
 						{% endfor %}
 					</ul>
-				{% else%}
+				{% else %}
 					<strong>There are no stories present.</strong>
 				{% endif %}
 				</div>
@@ -30,5 +32,5 @@
 			{% endif %}
 		</div>
 
-		
+
 {% endblock %}
