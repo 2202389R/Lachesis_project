@@ -40,6 +40,17 @@ def show_genre(request, genre_name_slug):
 
 	return render(request, 'lachesis/genre.html', context_dict)
 
+def show_story(request, story_name_slug):
+    try:
+        story = Story.objects.get(slug=story_name_slug)
+        context_dict['story'] = story
+    except Story.DoesNotExist:
+        context_dict['story'] = None
+
+    
+    
+    return render(request, 'lachesis/story.html', context_dict)
+
 def add_genre(request):
     form = GenreForm()
 

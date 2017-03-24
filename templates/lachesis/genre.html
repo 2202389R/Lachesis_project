@@ -11,7 +11,7 @@
 		{% if stories_genre %}
 			<u1>
 			{% for story in stories_genre %}
-				<li><a href="{{ story.url }}">{{ story.title }}</a></li>
+				<li><a href="{% url 'show_story' story.slug %}">{{ story.title }}</a></li>
 			{% endfor %}
 			</ul>
 		{% else %}

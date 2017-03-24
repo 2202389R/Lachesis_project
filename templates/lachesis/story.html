@@ -1,0 +1,15 @@
+{% extends "lachesis/base.html" %}
+{% load staticfiles %}
+
+{% block title_block %}
+	{{ story.name }}
+{% endblock %}
+
+{% block body_block %}
+	{% if story %}
+		hi!
+	{% else %}
+		The specified story does not exist!
+	{% endif %}
+	</div>
+{% endblock %}

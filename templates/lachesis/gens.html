@@ -4,12 +4,12 @@
 		{% if g == act_gen %}
 			<li>
 			<strong>
-				<a href="{% url 'show_genre' c.slug %}">{{ g.name }}</a>
+				<a href="{% url 'show_genre' g.slug %}">{{ g.name }}</a>
 			</strong>
 			</li>
 		{% else %}
 			<li>
-				<a href="{% url 'show_genre' c.slug %}">{{ g.name }}</a>
+				<a href="{% url 'show_genre' g.slug %}">{{ g.name }}</a>
 			</li>
 		{% endif %}
 	{% endfor %}
