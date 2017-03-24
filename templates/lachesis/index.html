@@ -7,45 +7,44 @@
 
 {% block body_block %}
 	<div>
-		<h1> </h1
+		<h1> </h1>
 			{% if user.is_authenticated %}
-				hello author {{ user.username }}!
+				<div>
+					<div>
+						<h3>Most Liked Genres</h3>
+					</div>
+
+				{% if genres %}
+					<ul>
+						{% for genre in genres %}
+							<li>
+								<a href="{% url 'show_genre' genre.slug %}">{{ genre.name }}</a>
+							</li>
+						{% endfor %}
+					</ul>
+				{% else%}
+					<strong>There are no genres present.</strong>
+				{% endif %}
+
+					<div>
+						<h3>Most Liked Stories</h3>
+					</div>
+
+				{% if stories %}
+					<ul>
+						{% for story in stories %}
+							<li><a href="{{ story.url }}">{{ story.title }}</a></li>
+						{% endfor %}
+					</ul>
+				{% else%}
+					<strong>There are no stories present.</strong>
+				{% endif %}
+				</div>
 			{% else %}
-				hey there author
+				<h3><strong>Welcome to Lachesis!</strong></h3>
+				<img src="{% static "images/lachesis.jpg" %}" alt="Picture of Lachesis" />
 			{% endif %}
 		</div>
 
-		<div>
-			<div>
-				<h3>Most Liked Genres</h3>
-			</div>
-
-		{% if genres %}
-		<ul>
-			{% for genre in genres %}
-			<li>
-				<a href="{% url 'show_genre' genre.slug %}">{{ genre.name }}</a>
-			</li>
-			{% endfor %}
-		</ul>
-		{% else%}
-			<strong>There are no genres present.</strong>
-		{% endif %}
-		</div>
-
-		<div>
-			<div>
-				<h3>Most Liked Stories</h3>
-			</div>
-
-		{% if stories %}
-		<ul>
-			{% for story in stories %}
-			<li><a href="{{ story.url }}">{{ story.title }}</a></li>
-			{% endfor %}
-		</ul>
-		{% else%}
-			<strong>There are no stories present.</strong>
-		{% endif %}
-		</div>
+		
 {% endblock %}
