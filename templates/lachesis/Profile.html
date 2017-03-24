@@ -6,11 +6,6 @@
 	<div class="container">
 		<h1>Profile</h1>
 		<img src="{{ user.UserProfile.image.url }}" width="240">
-		<p>Username: {{ user }}</p>
-		<p>First Name: {{ user.first_name }}</p>
-		<p>Last Name: {{ user.last_name }}</p>
-		<p>Email: {{ user.email }} </p>
-		<a href="{% url 'edit_profile' %}" class="btn btn-warning" role="button">Edit Profile</a>
-	</div>
-
+		<p><strong>Username: {{ user }}</strong></p>
+		<p><strong>Email: {{ user.email }}</strong></p>
 {% endblock %}
