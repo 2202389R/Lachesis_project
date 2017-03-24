@@ -1,0 +1,35 @@
+{% extends 'lachesis/base.html' %}
+{% load staticfiles %}
+{% block title_block %}
+	Add Segment
+{% endblock %}
+
+{% block body_block %}
+	<div>
+				{% if story %}
+			
+		<h1>Add a Segment to {{story.name}}</h1>
+		
+		<form id="segment_form" method="post" action="/lachesis/story/{{ story.slug }}/add_segment/">
+			
+			{% csrf_token %}
+			{% for hidden in form.hidden_fields %}
+				{{ hidden }}
+			{% endfor %}
+			
+			{% for field in form.visible_fields %}
+				<br>{{ field.errors }}</br>
+				{{ field.help_text }}
+				{{ field }}
+			{% endfor %}
+			
+			<input type="submit" name="submit" value="Add Segment" />
+			
+		</form>
+		
+				{% else %}
+					The specified story does not exist!
+				{% endif%}
+			
+	</div>
+{% endblock %}

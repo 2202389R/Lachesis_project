@@ -10,6 +10,8 @@ urlpatterns=[
         views.show_genre, name='show_genre'),
     url(r'^genre/(?P<genre_name_slug>[\w\-]+)/add_story/$',
         views.add_story, name='add_story'),
+    url(r'^story/(?P<story_name_slug>[\w\-]+)/add_segment/$',
+        views.add_segment, name='add_segment'),
     url(r'^story/(?P<story_name_slug>[\w\-]+)/$',
         views.show_story, name='show_story'),
     url(r'^register/$', views.register, name='register'),

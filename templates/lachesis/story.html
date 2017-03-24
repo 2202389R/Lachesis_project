@@ -6,10 +6,9 @@
 {% endblock %}
 
 {% block body_block %}
-	{% if story %}
-		hi!
-	{% else %}
-		The specified story does not exist!
-	{% endif %}
+		<li>
+			<a href="{% url 'add_segment' story.slug %}">Add Segment</a><br/>
+		</li>
+
 	</div>
 {% endblock %}
