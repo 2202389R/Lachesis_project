@@ -1,0 +1,17 @@
+{% extends "lachesis/base.html" %}
+{% load staticfiles %}
+
+{% block title_block %}
+	{{ segment.segment_number }}
+{% endblock %}
+
+{% block body_block %}
+	{% if story %}
+	
+		<h3>{{ segment.segment_number }}</h3>
+
+	{% else %}
+		The specified story does not exist!
+	{% endif %}
+	</div>
+{% endblock %}

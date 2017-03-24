@@ -52,6 +52,15 @@ def show_story(request, story_name_slug):
 
     return render(request, 'lachesis/story.html', context_dict)
 
+def show_segment(request, segment_name_slug):
+    try:
+        segment = Segment.objects.get(slug=segment_name_slug)
+        context_dict['segment'] = segment
+    except Story.DoesNotExist:
+        context_dict['segment'] = None
+        
+    return render(request, 'lachesis/segment.html', context_dict)
+
 def add_genre(request):
     form = GenreForm()
 

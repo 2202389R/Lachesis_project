@@ -2,7 +2,7 @@
 {% load staticfiles %}
 
 {% block title_block %}
-	{{ story.name }}
+	{{ story.title }}
 {% endblock %}
 
 {% block body_block %}
@@ -13,7 +13,7 @@
 		{% if segments_story %}
 			<u1>
 			{% for segment in segments_story %}
-				<li>{{ segment.segment_number }}</li>
+				<li><a href="{% url 'show_segment' segment.slug %}">{{ segment.segment_number }}</a></li>
 			{% endfor %}
 			</ul>
 		{% else %}

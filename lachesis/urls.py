@@ -14,6 +14,8 @@ urlpatterns=[
         views.add_segment, name='add_segment'),
     url(r'^story/(?P<story_name_slug>[\w\-]+)/$',
         views.show_story, name='show_story'),
+    url(r'^segment/(?P<segment_name_slug>[\w\-]+)/$',
+        views.show_segment, name='show_segment'),
     url(r'^register/$', views.register, name='register'),
     url(r'^login/$', views.user_login, name='login'),
     url(r'^restricted/', views.restricted, name='restricted'),
